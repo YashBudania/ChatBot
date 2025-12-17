@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chatbot</title>
+    <style>
+        body { font-family: Arial; background:#eee; }
+        #box { width:400px; margin:40px auto; background:#fff; padding:10px; }
+        #msgs { height:300px; overflow:auto; border:1px solid #ccc; }
+        input { width:75%; padding:6px; }
+        button { padding:6px; }
+    </style>
+</head>
+<body>
+
+<div id="box">
+    <h3>Personal Assistant</h3>
+    <div id="msgs"></div>
+    <input id="msg" placeholder="Type here">
+    <button onclick="send()">Send</button>
+</div>
+
+<script>
+function send(){
+    let m = document.getElementById("msg").value;
+    if(!m) return;
+
+    let box = document.getElementById("msgs");
+    box.innerHTML += "<p><b>You:</b> "+m+"</p>";
+
+    fetch("/chat", {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify({message:m})
+    })
+    .then(r => r.json())
+    .then(d => {
+        box.innerHTML += "<p><b>Bot:</b> "+d.reply+"</p>";
+        box.scrollTop = box.scrollHeight;
+    });
+
+    document.getElementById("msg").value = "";
+}
+</script>
+
+</body>
+</html>

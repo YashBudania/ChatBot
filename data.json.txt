@@ -1,0 +1,7 @@
+{
+  "hi": "Hello! I am your personal assistant.",
+  "hello": "Hi! How can I help you?",
+  "help": "You can ask me about time, date, or general questions.",
+  "thanks": "You’re welcome!",
+  "bye": "Goodbye! Have a nice day."
+}
